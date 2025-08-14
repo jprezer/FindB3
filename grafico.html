@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="grafico" style="width:100%;height:500px;"></div>
+    <script>
+        fetch('dados.json')
+            .then(response => response.json())
+            .then(data => {
+                const trace = {
+                    x: data.map(d => d.data),
+                    y: data.map(d => d.preco),
+                    mode: 'lines+markers',
+                    type: 'scatter',
+                    marker: { size: 8 }
+                };
+                const layout = {
+                    title: 'Histórico de BBAS3',
+                    xaxis: { title: 'Data' },
+                    yaxis: { title: 'Preço (R$)' }
+                };
+                Plotly.newPlot('grafico', [trace], layout);
+            });
+    </script>
+</body>
+</html>
